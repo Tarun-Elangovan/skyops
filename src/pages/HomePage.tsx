@@ -2,7 +2,6 @@ import React from 'react';
 import { GenesisNavbar } from '../components/home/GenesisNavbar';
 import { GenesisHero } from '../components/home/GenesisHero';
 import { FloatingSearchBar } from '../components/home/FloatingSearchBar';
-import { AirlineMarquee } from '../components/home/AirlineMarquee';
 import { AttentionCardsCarousel } from '../components/home/AttentionCardsCarousel';
 import { AirportStatusGlance } from '../components/home/AirportStatusGlance';
 import { PendingRecommendationsList } from '../components/home/PendingRecommendationsList';
@@ -16,21 +15,18 @@ export const HomePage: React.FC = () => {
       {/* 2. Hero: Sky blue, airliner, giant SkyOps watermark, welcome greeting */}
       <GenesisHero />
 
-      {/* 3 & 4. Search Bar & Seeded Airline Marquee Transition Area (All Grey) */}
-      <div className="w-full bg-[#9DA0A6] border-y border-slate-400/40 relative pb-2">
-        <FloatingSearchBar />
-        <AirlineMarquee />
-      </div>
+      {/* 3. Floating Glass Search Bar overlapping bottom edge of hero */}
+      <FloatingSearchBar />
 
-      {/* 5, 6, 7. Operational Roster & Intel (Cohesive White / Light Theme matching other pages) */}
-      <div className="w-full bg-[#F8FAFC] text-[#0F172A] border-t border-slate-200/80 flex-1 pb-16">
-        {/* 5. Flights Requiring Attention */}
+      {/* 4, 5, 6. Operational Roster & Intel */}
+      <div className="w-full bg-[#F8FAFC] text-[#0F172A] flex-1 pb-16">
+        {/* Flights Requiring Attention */}
         <AttentionCardsCarousel />
 
-        {/* 6. Airport Status at a Glance (4 Compact KPI Cards) */}
+        {/* Airport Status at a Glance (4 Compact KPI Cards) */}
         <AirportStatusGlance />
 
-        {/* 7. Pending Gate Recommendations */}
+        {/* Pending Gate Recommendations */}
         <PendingRecommendationsList />
       </div>
     </div>

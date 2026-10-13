@@ -26,32 +26,35 @@ async function run() {
     }));
   });
 
-  // 1. Dashboard
-  console.log('Navigating to /app/dashboard...');
-  await page.goto('http://localhost:5173/app/dashboard', { waitUntil: 'networkidle0', timeout: 30000 });
-  await new Promise(r => setTimeout(r, 1200));
-  const dashboardPath = path.join(ARTIFACT_DIR, 'dashboard_no_subtitle.png');
-  await page.screenshot({ path: dashboardPath, fullPage: false });
-  console.log(`Saved dashboard: ${dashboardPath}`);
+  // 1. Desktop
+  console.log('Capturing Desktop /home...');
+  await page.setViewport({ width: 1440, height: 900, deviceScaleFactor: 1 });
+  await page.goto('http://localhost:5173/home', { waitUntil: 'networkidle0', timeout: 30000 });
+  await new Promise(r => setTimeout(r, 1500));
+  await page.evaluate(() => window.scrollBy({ top: 380, behavior: 'instant' }));
+  await new Promise(r => setTimeout(r, 500));
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'home_no_gray_band_desktop.png'), fullPage: false });
 
-  // 2. Predictions
-  console.log('Navigating to /app/predictions...');
-  await page.goto('http://localhost:5173/app/predictions', { waitUntil: 'networkidle0', timeout: 30000 });
-  await new Promise(r => setTimeout(r, 1200));
-  const predictionsPath = path.join(ARTIFACT_DIR, 'predictions_no_subtitle.png');
-  await page.screenshot({ path: predictionsPath, fullPage: false });
-  console.log(`Saved predictions: ${predictionsPath}`);
+  // 2. Tablet
+  console.log('Capturing Tablet /home...');
+  await page.setViewport({ width: 768, height: 1024, deviceScaleFactor: 1 });
+  await page.goto('http://localhost:5173/home', { waitUntil: 'networkidle0', timeout: 30000 });
+  await new Promise(r => setTimeout(r, 1500));
+  await page.evaluate(() => window.scrollBy({ top: 380, behavior: 'instant' }));
+  await new Promise(r => setTimeout(r, 500));
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'home_no_gray_band_tablet.png'), fullPage: false });
 
-  // 3. Alerts
-  console.log('Navigating to /app/alerts...');
-  await page.goto('http://localhost:5173/app/alerts', { waitUntil: 'networkidle0', timeout: 30000 });
-  await new Promise(r => setTimeout(r, 1200));
-  const alertsPath = path.join(ARTIFACT_DIR, 'alerts_no_subtitle.png');
-  await page.screenshot({ path: alertsPath, fullPage: false });
-  console.log(`Saved alerts: ${alertsPath}`);
+  // 3. Mobile
+  console.log('Capturing Mobile /home...');
+  await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 1 });
+  await page.goto('http://localhost:5173/home', { waitUntil: 'networkidle0', timeout: 30000 });
+  await new Promise(r => setTimeout(r, 1500));
+  await page.evaluate(() => window.scrollBy({ top: 340, behavior: 'instant' }));
+  await new Promise(r => setTimeout(r, 500));
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'home_no_gray_band_mobile.png'), fullPage: false });
 
   await browser.close();
-  console.log('All verification screenshots captured!');
+  console.log('All responsive screenshots captured!');
 }
 
 run().catch(err => {
